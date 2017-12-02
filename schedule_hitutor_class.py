@@ -13,7 +13,7 @@ def send_email(text):
         auth=('api', '{API_KEY}'),
         data={'from': 'clapperboard <clapperboard@sandboxb32d692d0f75420b8f6b183034325c68.mailgun.org>',
               'to': [USERNAME],
-              'subject': '[AUTO] Schedule the hitutor class',
+              'subject': '[AUTO] Scheduled the English Class!',
               'text': text})
 
 def login():
@@ -32,11 +32,11 @@ def schedule(c, teacher, date, time, category=146416):
         'date': date,
         'id': category,
         'time': time,
-        'teacher': teacher,
+        'teacher': int(teacher),
         'check_mobile': False
     }
-    res = c.post('http://login.hitutor.com.tw/member/class-schedule-2.php', date=payload)
-    if res.headers['status'] == '200 OK':
+    res = c.post('http://login.hitutor.com.tw/member/class-schedule-2.php', data=payload)
+    if res.status_code == 200:
         # send email
         send_email(res.content)
 
@@ -54,9 +54,9 @@ def main(argv):
     # date (option, deafult = next Friday)
     today = datetime.date.today()
     if 'date' not in args:
-        date = today + datetime.timedelta((4 - today.weekday()) % 7)
+        date = today + datetime.timedelta(34)
     else:
-        date = today + datetime.timedelta(((args['date'] - 1) - today.weekday()) % 7)
+        date = today + datetime.timedelta(29 + int(args['date']))
 
     # time (option, default = 23:00)
     if 'time' not in args:
