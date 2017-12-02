@@ -1,6 +1,10 @@
-# fun-hacks
+## fun-hacks 
 
-## Schedule hitutor class
+:ghost:
+
+### Schedule hitutor class
+
+[hitutor](http://www.hitutor.com.tw/)
 
 ```
 $ python schedule_hitutor_class.py {teacher_id} {date} {time} {category}
